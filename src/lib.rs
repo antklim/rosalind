@@ -14,6 +14,7 @@
 //! let dna_nucleotides = DNANucleotides {A: 20, C: 12, G: 17, T: 21};
 //! assert_eq!(count_dna_nucleotides(dna).unwrap(), dna_nucleotides);
 //! assert_eq!(dna_nucleotides.to_string(), "20 12 17 21");
+//! assert_eq!(count_dna_nucleotides("\n").unwrap(), DNANucleotides {A: 0, C: 0, G: 0, T: 0});
 //! ```
 
 use std::error::Error;
@@ -73,6 +74,7 @@ impl fmt::Display for DNANucleotides {
 /// let dna_nucleotides = DNANucleotides {A: 20, C: 12, G: 17, T: 21};
 /// assert_eq!(count_dna_nucleotides(dna).unwrap(), dna_nucleotides);
 /// assert_eq!(dna_nucleotides.to_string(), "20 12 17 21");
+/// assert_eq!(count_dna_nucleotides("\n").unwrap(), DNANucleotides {A: 0, C: 0, G: 0, T: 0});
 /// ```
 pub fn count_dna_nucleotides(dna: &str) -> Result<DNANucleotides, RosalindError> {
   let mut dna_nucleotides = DNANucleotides {A: 0, C: 0, G: 0, T: 0};
@@ -82,6 +84,7 @@ pub fn count_dna_nucleotides(dna: &str) -> Result<DNANucleotides, RosalindError>
       'C' => dna_nucleotides.C += 1,
       'G' => dna_nucleotides.G += 1,
       'T' => dna_nucleotides.T += 1,
+      '\n' => continue,
       _ => return Err(UnknownNucleotide(nucleotid))
     }
   }
@@ -112,5 +115,10 @@ mod tests {
   fn it_should_format_dna_nucleotides() {
     let dna_nucleotides = DNANucleotides {A: 1, C: 2, G: 3, T: 4};
     assert_eq!(dna_nucleotides.to_string(), "1 2 3 4");
+  }
+
+  #[test]
+  fn it_should_skip_new_line_symbol() {
+    assert_eq!(count_dna_nucleotides("\n").unwrap(), DNANucleotides {A: 0, C: 0, G: 0, T: 0});
   }
 }
