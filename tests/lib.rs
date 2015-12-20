@@ -1,8 +1,7 @@
 extern crate rosalind;
 
 use rosalind::RosalindError::UnknownNucleotide;
-use rosalind::DNANucleotides;
-use rosalind::count_dna_nucleotides;
+use rosalind::dna::*;
 
 #[test]
 fn it_should_return_error_when_unknown_nucleotid_found() {
