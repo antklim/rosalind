@@ -3,32 +3,33 @@
 //! # Counting DNA Nucleotides
 //! ## Examples
 //! ```
-//! use rosalind::RosalindError::UnknownNucleotid;
+//! use rosalind::RosalindError::UnknownNucleotide;
 //! use rosalind::DNANucleotides;
 //! use rosalind::count_dna_nucleotides;
 //!
 //! let mut dna = "Z";
-//! assert_eq!(count_dna_nucleotides(dna).unwrap_err(), UnknownNucleotid('Z'));
+//! assert_eq!(count_dna_nucleotides(dna).unwrap_err(), UnknownNucleotide('Z'));
 //!
 //! dna = "AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC";
 //! let dna_nucleotides = DNANucleotides {A: 20, C: 12, G: 17, T: 21};
 //! assert_eq!(count_dna_nucleotides(dna).unwrap(), dna_nucleotides);
+//! assert_eq!(dna_nucleotides.to_string(), "20 12 17 21");
 //! ```
 
 use std::error::Error;
 use std::fmt;
 
-use self::RosalindError::{UnknownNucleotid};
+use self::RosalindError::{UnknownNucleotide};
 
 #[derive(PartialEq, Debug)]
 pub enum RosalindError {
-  UnknownNucleotid(char),
+  UnknownNucleotide(char),
 }
 
 impl fmt::Display for RosalindError {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     match *self {
-      UnknownNucleotid(ref nucleotid) => write!(f, "{}: '{}'", self.description(), nucleotid),
+      UnknownNucleotide(ref nucleotid) => write!(f, "{}: '{}'", self.description(), nucleotid),
     }
   }
 }
@@ -36,7 +37,7 @@ impl fmt::Display for RosalindError {
 impl Error for RosalindError {
   fn description(&self) -> &str {
     match *self {
-      UnknownNucleotid(..) => "Unknown nucleotid",
+      UnknownNucleotide(..) => "Unknown nucleotid",
     }
   }
 }
@@ -51,20 +52,27 @@ pub struct DNANucleotides {
   pub T: u32
 }
 
+impl fmt::Display for DNANucleotides {
+  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    write!(f, "{} {} {} {}", self.A, self.C, self.G, self.T)
+  }
+}
+
 /// This function calculates dna nucleotides
 ///
 /// # Examples
 /// ```
-/// use rosalind::RosalindError::UnknownNucleotid;
+/// use rosalind::RosalindError::UnknownNucleotide;
 /// use rosalind::DNANucleotides;
 /// use rosalind::count_dna_nucleotides;
 ///
 /// let mut dna = "Z";
-/// assert_eq!(count_dna_nucleotides(dna).unwrap_err(), UnknownNucleotid('Z'));
+/// assert_eq!(count_dna_nucleotides(dna).unwrap_err(), UnknownNucleotide('Z'));
 ///
 /// dna = "AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC";
 /// let dna_nucleotides = DNANucleotides {A: 20, C: 12, G: 17, T: 21};
 /// assert_eq!(count_dna_nucleotides(dna).unwrap(), dna_nucleotides);
+/// assert_eq!(dna_nucleotides.to_string(), "20 12 17 21");
 /// ```
 pub fn count_dna_nucleotides(dna: &str) -> Result<DNANucleotides, RosalindError> {
   let mut dna_nucleotides = DNANucleotides {A: 0, C: 0, G: 0, T: 0};
@@ -74,7 +82,7 @@ pub fn count_dna_nucleotides(dna: &str) -> Result<DNANucleotides, RosalindError>
       'C' => dna_nucleotides.C += 1,
       'G' => dna_nucleotides.G += 1,
       'T' => dna_nucleotides.T += 1,
-      _ => return Err(UnknownNucleotid(nucleotid))
+      _ => return Err(UnknownNucleotide(nucleotid))
     }
   }
 
@@ -83,14 +91,14 @@ pub fn count_dna_nucleotides(dna: &str) -> Result<DNANucleotides, RosalindError>
 
 #[cfg(test)]
 mod tests {
-  use super::RosalindError::UnknownNucleotid;
+  use super::RosalindError::UnknownNucleotide;
   use super::DNANucleotides;
   use super::count_dna_nucleotides;
 
   #[test]
   fn it_should_return_error_when_unknown_nucleotid_found() {
     let dna = "Z";
-    assert_eq!(count_dna_nucleotides(dna).unwrap_err(), UnknownNucleotid('Z'));
+    assert_eq!(count_dna_nucleotides(dna).unwrap_err(), UnknownNucleotide('Z'));
   }
 
   #[test]
@@ -98,5 +106,11 @@ mod tests {
     let dna = "AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC";
     let dna_nucleotides = DNANucleotides {A: 20, C: 12, G: 17, T: 21};
     assert_eq!(count_dna_nucleotides(dna).unwrap(), dna_nucleotides);
+  }
+
+  #[test]
+  fn it_should_format_dna_nucleotides() {
+    let dna_nucleotides = DNANucleotides {A: 1, C: 2, G: 3, T: 4};
+    assert_eq!(dna_nucleotides.to_string(), "1 2 3 4");
   }
 }
