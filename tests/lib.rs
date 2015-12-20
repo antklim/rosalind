@@ -22,3 +22,8 @@ fn it_should_format_dna_nucleotides() {
   let dna_nucleotides = DNANucleotides {A: 1, C: 2, G: 3, T: 4};
   assert_eq!(dna_nucleotides.to_string(), "1 2 3 4");
 }
+
+#[test]
+fn it_should_skip_new_line_symbol() {
+  assert_eq!(count_dna_nucleotides("\n").unwrap(), DNANucleotides {A: 0, C: 0, G: 0, T: 0});
+}
