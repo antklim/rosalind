@@ -1,5 +1,5 @@
-use super::RosalindError;
-use super::RosalindError::UnknownNucleotide;
+use RosalindError;
+use RosalindError::UnknownNucleotide;
 
 /// This function transcribes DNA into RNA via replacung T nucleotide in DNA
 /// into U nucleotide in RNA
@@ -26,4 +26,26 @@ pub fn transcribe_dna_into_rna(dna: &str) -> Result<String, RosalindError> {
   }
 
   Ok(rna)
+}
+
+#[cfg(test)]
+mod tests {
+  use super::transcribe_dna_into_rna;
+  use super::super::RosalindError::UnknownNucleotide;
+
+  #[test]
+  fn it_should_return_error_when_unknown_nucleotid_found() {
+    assert_eq!(transcribe_dna_into_rna("Z").unwrap_err(), UnknownNucleotide('Z'));
+  }
+
+  #[test]
+  fn it_should_transcribe_dna_into_rna() {
+    let dna = "GATGGAACTTGACTACGTAAATT";
+    assert_eq!(transcribe_dna_into_rna(dna).unwrap(), "GAUGGAACUUGACUACGUAAAUU");
+  }
+
+  #[test]
+  fn it_should_skip_new_line_symbol() {
+    assert_eq!(transcribe_dna_into_rna("\n").unwrap(), "");
+  }
 }

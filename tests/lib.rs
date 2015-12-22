@@ -4,7 +4,7 @@ use rosalind::RosalindError::UnknownNucleotide;
 use rosalind::dna::*;
 use rosalind::rna::*;
 
-// DNA =======================================================================
+// DNA =========================================================================
 #[test]
 fn dna_should_return_error_when_unknown_nucleotid_found() {
   assert_eq!(count_dna_nucleotides("Z").unwrap_err(), UnknownNucleotide('Z'));
@@ -28,7 +28,7 @@ fn dna_should_skip_new_line_symbol() {
   assert_eq!(count_dna_nucleotides("\n").unwrap(), DNANucleotides {A: 0, C: 0, G: 0, T: 0});
 }
 
-// RNA =======================================================================
+// RNA =========================================================================
 #[test]
 fn rna_should_return_error_when_unknown_nucleotid_found() {
   assert_eq!(transcribe_dna_into_rna("Z").unwrap_err(), UnknownNucleotide('Z'));
