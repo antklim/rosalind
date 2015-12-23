@@ -10,10 +10,10 @@
 /// assert_eq!(recurrence_relation(5, 3), 19);
 /// ```
 #[allow(unused_variables)]
-pub fn recurrence_relation(n: u8, k: u8) -> u16 {
-  let mut pair: (u16, u16) = (1, 1);
+pub fn recurrence_relation(n: u8, k: u8) -> u64 {
+  let mut pair: (u64, u64) = (1, 1);
   for i in 0..n - 1 {
-    pair = (pair.1, pair.0 * k as u16 + pair.1)
+    pair = (pair.1, pair.0 * k as u64 + pair.1)
   }
   return pair.0;
 }
