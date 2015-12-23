@@ -1,6 +1,6 @@
 [package]
 name = "rosalind"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Anton Klimenko <antklim@gmail.com>"]
 description = "Crate contains solutions of problems published on Rosalind.info"
 repository = "https://github.com/antklim/rosalind.git"

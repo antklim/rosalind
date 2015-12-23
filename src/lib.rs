@@ -37,6 +37,14 @@
 //! assert_eq!(reverse_complement_dna("\n").unwrap(), "");
 //! assert_eq!(reverse_complement_dna("Z").unwrap_err(), UnknownNucleotide('Z'));
 //! ```
+//!
+//! # Rabbits and Recurrence Relations
+//! ## Examples
+//! ```
+//! use rosalind::fib::*;
+//!
+//! assert_eq!(recurrence_relation(5, 3), 19);
+//! ```
 
 use std::error::Error;
 use std::fmt;
@@ -67,4 +75,4 @@ impl Error for RosalindError {
 pub mod dna;
 pub mod rna;
 pub mod revc;
-
+pub mod fib;
