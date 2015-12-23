@@ -4,6 +4,7 @@ use rosalind::RosalindError::UnknownNucleotide;
 use rosalind::dna::*;
 use rosalind::rna::*;
 use rosalind::revc::*;
+use rosalind::fib::*;
 
 // DNA =========================================================================
 #[test]
@@ -62,3 +63,10 @@ fn revc_should_reverse_complement_dna() {
 fn revc_should_skip_new_line_symbol() {
   assert_eq!(reverse_complement_dna("\n").unwrap(), "");
 }
+
+// FIB =========================================================================
+#[test]
+fn fib_should_return_recurrence_relation() {
+  assert_eq!(recurrence_relation(5, 3), 19);
+}
+
