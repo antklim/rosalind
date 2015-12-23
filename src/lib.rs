@@ -25,6 +25,18 @@
 //! assert_eq!(transcribe_dna_into_rna("\n").unwrap(), "");
 //! assert_eq!(transcribe_dna_into_rna("Z").unwrap_err(), UnknownNucleotide('Z'));
 //! ```
+//!
+//! # Complementing a Strand of DNA
+//! ## Examples
+//! ```
+//! use rosalind::RosalindError::UnknownNucleotide;
+//! use rosalind::revc::*;
+//!
+//! let dna = "AAAACCCGGT";
+//! assert_eq!(reverse_complement_dna(dna).unwrap(), "ACCGGGTTTT");
+//! assert_eq!(reverse_complement_dna("\n").unwrap(), "");
+//! assert_eq!(reverse_complement_dna("Z").unwrap_err(), UnknownNucleotide('Z'));
+//! ```
 
 use std::error::Error;
 use std::fmt;
@@ -54,3 +66,5 @@ impl Error for RosalindError {
 
 pub mod dna;
 pub mod rna;
+pub mod revc;
+

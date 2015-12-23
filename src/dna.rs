@@ -1,3 +1,5 @@
+//! Module for `Counting DNA Nucleotides`
+
 use std::fmt;
 use RosalindError;
 use RosalindError::UnknownNucleotide;

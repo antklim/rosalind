@@ -1,3 +1,5 @@
+//! Module for `Transcribing DNA into RNA`
+
 use RosalindError;
 use RosalindError::UnknownNucleotide;
 
