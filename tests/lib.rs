@@ -3,6 +3,7 @@ extern crate rosalind;
 use rosalind::RosalindError::UnknownNucleotide;
 use rosalind::dna::*;
 use rosalind::rna::*;
+use rosalind::revc::*;
 
 // DNA =========================================================================
 #[test]
@@ -43,4 +44,21 @@ fn rna_should_transcribe_dna_into_rna() {
 #[test]
 fn rna_should_skip_new_line_symbol() {
   assert_eq!(transcribe_dna_into_rna("\n").unwrap(), "");
+}
+
+// REVC ========================================================================
+#[test]
+fn revc_should_return_error_when_unknown_nucleotid_found() {
+  assert_eq!(reverse_complement_dna("Z").unwrap_err(), UnknownNucleotide('Z'));
+}
+
+#[test]
+fn revc_should_reverse_complement_dna() {
+  let dna = "AAAACCCGGT";
+  assert_eq!(reverse_complement_dna(dna).unwrap(), "ACCGGGTTTT");
+}
+
+#[test]
+fn revc_should_skip_new_line_symbol() {
+  assert_eq!(reverse_complement_dna("\n").unwrap(), "");
 }
