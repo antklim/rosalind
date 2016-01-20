@@ -45,29 +45,46 @@
 //!
 //! assert_eq!(recurrence_relation(5, 3), 19);
 //! ```
+//! # Translating RNA into Protein
+//! ## Examples
+//! ```
+//! use rosalind::RosalindError::{CodonParseError, UnknownCodon};
+//! use rosalind::prot::*;
+//!
+//! let rna = "AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA";
+//! assert_eq!(translate_rna_into_protein(rna).unwrap(), "MAMAPRTEINSTRING");
+//! assert_eq!(translate_rna_into_protein("Z").unwrap_err(), CodonParseError);
+//! assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ"));
+//! ```
 
 use std::error::Error;
 use std::fmt;
 
-use self::RosalindError::{UnknownNucleotide};
+use self::RosalindError::{UnknownNucleotide, CodonParseError, UnknownCodon};
 
 #[derive(PartialEq, Debug)]
-pub enum RosalindError {
+pub enum RosalindError<'a> {
   UnknownNucleotide(char),
+  UnknownCodon(&'a str),
+  CodonParseError,
 }
 
-impl fmt::Display for RosalindError {
+impl<'a> fmt::Display for RosalindError<'a> {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     match *self {
-      UnknownNucleotide(ref nucleotid) => write!(f, "{}: '{}'", self.description(), nucleotid),
+      UnknownNucleotide(ref nucleotide) => write!(f, "{}: '{}'", self.description(), nucleotide),
+      UnknownCodon(ref codon) => write!(f, "{}: '{}'", self.description(), codon),
+      _ => write!(f, "{}", self.description()),
     }
   }
 }
 
-impl Error for RosalindError {
+impl<'a> Error for RosalindError<'a> {
   fn description(&self) -> &str {
     match *self {
-      UnknownNucleotide(..) => "Unknown nucleotid",
+      UnknownNucleotide(..) => "Unknown nucleotide",
+      UnknownCodon(..) => "Unknown codon",
+      CodonParseError => "Could not parse RNA string and group codons",
     }
   }
 }
@@ -76,3 +93,4 @@ pub mod dna;
 pub mod rna;
 pub mod revc;
 pub mod fib;
+pub mod prot;

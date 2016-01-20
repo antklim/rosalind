@@ -1,14 +1,15 @@
 extern crate rosalind;
 
-use rosalind::RosalindError::UnknownNucleotide;
+use rosalind::RosalindError::*;
 use rosalind::dna::*;
 use rosalind::rna::*;
 use rosalind::revc::*;
 use rosalind::fib::*;
+use rosalind::prot::*;
 
 // DNA =========================================================================
 #[test]
-fn dna_should_return_error_when_unknown_nucleotid_found() {
+fn dna_should_return_error_when_unknown_nucleotide_found() {
   assert_eq!(count_dna_nucleotides("Z").unwrap_err(), UnknownNucleotide('Z'));
 }
 
@@ -32,7 +33,7 @@ fn dna_should_skip_new_line_symbol() {
 
 // RNA =========================================================================
 #[test]
-fn rna_should_return_error_when_unknown_nucleotid_found() {
+fn rna_should_return_error_when_unknown_nucleotide_found() {
   assert_eq!(transcribe_dna_into_rna("Z").unwrap_err(), UnknownNucleotide('Z'));
 }
 
@@ -49,7 +50,7 @@ fn rna_should_skip_new_line_symbol() {
 
 // REVC ========================================================================
 #[test]
-fn revc_should_return_error_when_unknown_nucleotid_found() {
+fn revc_should_return_error_when_unknown_nucleotide_found() {
   assert_eq!(reverse_complement_dna("Z").unwrap_err(), UnknownNucleotide('Z'));
 }
 
@@ -70,3 +71,19 @@ fn fib_should_return_recurrence_relation() {
   assert_eq!(recurrence_relation(5, 3), 19);
 }
 
+// PROT =========================================================================
+#[test]
+fn prot_should_translate_rna_into_protein() {
+  let rna = "AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA";
+  assert_eq!(translate_rna_into_protein(rna).unwrap(), "MAMAPRTEINSTRING");
+}
+
+#[test]
+fn prot_should_return_error_when_cannot_parse_codons() {
+  assert_eq!(translate_rna_into_protein("Z").unwrap_err(), CodonParseError);
+}
+
+#[test]
+fn prot_should_return_error_when_unknown_codon_found() {
+  assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ"));
+}
