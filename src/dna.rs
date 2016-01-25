@@ -57,7 +57,7 @@ mod tests {
   use super::super::RosalindError::UnknownNucleotide;
 
   #[test]
-  fn it_should_return_error_when_unknown_nucleotid_found() {
+  fn it_should_return_error_when_unknown_nucleotide_found() {
     assert_eq!(count_dna_nucleotides("Z").unwrap_err(), UnknownNucleotide('Z'));
   }
 

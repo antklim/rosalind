@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.3.0] - 2016-01-25
+### Added
+- `prot` module: solution for `Translating RNA into Protein`
+
 ## [0.2.1] - 2015-12-23
 ### Fixed
 - Fix overflow in `fib::recurrence_relation`
