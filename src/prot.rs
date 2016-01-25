@@ -41,11 +41,13 @@ fn codon_into_amino_acid(codon: &str) -> Result<char, RosalindError> {
 ///
 /// let rna = "AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA";
 /// assert_eq!(translate_rna_into_protein(rna).unwrap(), "MAMAPRTEINSTRING");
+/// assert_eq!(translate_rna_into_protein("AUGUGA\n").unwrap(), "M");
 /// assert_eq!(translate_rna_into_protein("Z").unwrap_err(), CodonParseError);
 /// assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ"));
 /// ```
 pub fn translate_rna_into_protein(rna: &str) -> Result<String, RosalindError> {
-  let rna_len = rna.len();
+  let mut rna_len = rna.len();
+  if rna.ends_with("\n") { rna_len = rna_len - 1; }
   if rna_len % 3 != 0 { return Err(CodonParseError); }
 
   let mut prot = String::new();
@@ -68,6 +70,12 @@ mod tests {
   fn it_should_translate_rna_into_protein() {
     let rna = "AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA";
     assert_eq!(translate_rna_into_protein(rna).unwrap(), "MAMAPRTEINSTRING");
+  }
+
+  #[test]
+  fn it_should_ignore_new_line_symbol() {
+    let rna = "AUGUGA\n";
+    assert_eq!(translate_rna_into_protein(rna).unwrap(), "M");
   }
 
   #[test]

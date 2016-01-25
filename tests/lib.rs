@@ -79,6 +79,12 @@ fn prot_should_translate_rna_into_protein() {
 }
 
 #[test]
+fn prot_should_ignore_new_line_symbol() {
+  let rna = "AUGUGA\n";
+  assert_eq!(translate_rna_into_protein(rna).unwrap(), "M");
+}
+
+#[test]
 fn prot_should_return_error_when_cannot_parse_codons() {
   assert_eq!(translate_rna_into_protein("Z").unwrap_err(), CodonParseError);
 }

@@ -53,6 +53,7 @@
 //!
 //! let rna = "AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA";
 //! assert_eq!(translate_rna_into_protein(rna).unwrap(), "MAMAPRTEINSTRING");
+//! assert_eq!(translate_rna_into_protein("AUGUGA\n").unwrap(), "M");
 //! assert_eq!(translate_rna_into_protein("Z").unwrap_err(), CodonParseError);
 //! assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ"));
 //! ```
