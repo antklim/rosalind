@@ -6,6 +6,7 @@ use rosalind::rna::*;
 use rosalind::revc::*;
 use rosalind::fib::*;
 use rosalind::prot::*;
+use rosalind::hamm::*;
 
 // DNA =========================================================================
 #[test]
@@ -71,7 +72,7 @@ fn fib_should_return_recurrence_relation() {
   assert_eq!(recurrence_relation(5, 3), 19);
 }
 
-// PROT =========================================================================
+// PROT ========================================================================
 #[test]
 fn prot_should_translate_rna_into_protein() {
   let rna = "AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA";
@@ -92,4 +93,17 @@ fn prot_should_return_error_when_cannot_parse_codons() {
 #[test]
 fn prot_should_return_error_when_unknown_codon_found() {
   assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ"));
+}
+
+// HAMM ========================================================================
+#[test]
+fn hamm_should_return_hamming_distance() {
+  let s = "GAGCCTACTAACGGGAT";
+  let t = "CATCGTAATGACGGCCT";
+  assert_eq!(hamming_distance(s, t).unwrap(), 7);
+}
+
+#[test]
+fn hamm_should_return_error_when_strings_have_different_length() {
+  assert_eq!(hamming_distance("G", "").unwrap_err(), HammingStringsLengthError);
 }

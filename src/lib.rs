@@ -45,6 +45,7 @@
 //!
 //! assert_eq!(recurrence_relation(5, 3), 19);
 //! ```
+//!
 //! # Translating RNA into Protein
 //! ## Examples
 //! ```
@@ -57,17 +58,30 @@
 //! assert_eq!(translate_rna_into_protein("Z").unwrap_err(), CodonParseError);
 //! assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ"));
 //! ```
+//!
+//! # Counting Point Mutations
+//! ## Examples
+//! ```
+//! use rosalind::RosalindError::HammingStringsLengthError;
+//! use rosalind::hamm::*;
+//!
+//! let s = "GAGCCTACTAACGGGAT";
+//! let t = "CATCGTAATGACGGCCT";
+//! assert_eq!(hamming_distance(s, t).unwrap(), 7);
+//! assert_eq!(hamming_distance("G", "").unwrap_err(), HammingStringsLengthError);
+//! ```
 
 use std::error::Error;
 use std::fmt;
 
-use self::RosalindError::{UnknownNucleotide, CodonParseError, UnknownCodon};
+use self::RosalindError::*;
 
 #[derive(PartialEq, Debug)]
 pub enum RosalindError<'a> {
   UnknownNucleotide(char),
   UnknownCodon(&'a str),
   CodonParseError,
+  HammingStringsLengthError,
 }
 
 impl<'a> fmt::Display for RosalindError<'a> {
@@ -86,6 +100,7 @@ impl<'a> Error for RosalindError<'a> {
       UnknownNucleotide(..) => "Unknown nucleotide",
       UnknownCodon(..) => "Unknown codon",
       CodonParseError => "Could not parse RNA string and group codons",
+      HammingStringsLengthError => "Strings must have equal length",
     }
   }
 }
@@ -95,3 +110,4 @@ pub mod rna;
 pub mod revc;
 pub mod fib;
 pub mod prot;
+pub mod hamm;
