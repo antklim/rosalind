@@ -1,6 +1,6 @@
 //! Module for `Transcribing DNA into RNA`
 
-use RosalindError;
+use Result;
 use RosalindError::UnknownNucleotide;
 
 /// This function transcribes DNA into RNA via replacung T nucleotide in DNA
@@ -16,7 +16,7 @@ use RosalindError::UnknownNucleotide;
 /// assert_eq!(transcribe_dna_into_rna("\n").unwrap(), "");
 /// assert_eq!(transcribe_dna_into_rna("Z").unwrap_err(), UnknownNucleotide('Z'));
 /// ```
-pub fn transcribe_dna_into_rna(dna: &str) -> Result<String, RosalindError> {
+pub fn transcribe_dna_into_rna(dna: &str) -> Result<String> {
   let mut rna = String::new();
   for nucleotide in dna.chars() {
     match nucleotide {

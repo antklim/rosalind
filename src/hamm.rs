@@ -1,6 +1,6 @@
 //! Module for `Counting Point Mutations`
 
-use RosalindError;
+use Result;
 use RosalindError::HammingStringsLengthError;
 
 /// This function calculates Hamming distance between `s` and `t`
@@ -15,7 +15,7 @@ use RosalindError::HammingStringsLengthError;
 /// assert_eq!(hamming_distance(s, t).unwrap(), 7);
 /// assert_eq!(hamming_distance("G", "").unwrap_err(), HammingStringsLengthError);
 /// ```
-pub fn hamming_distance<'a>(s: &str, t: &str) -> Result<u16, RosalindError<'a>> {
+pub fn hamming_distance<'a>(s: &str, t: &str) -> Result<'a, u16> {
   if s.len() != t.len() { return Err(HammingStringsLengthError); }
 
   let s_iter = s.chars();

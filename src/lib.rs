@@ -43,7 +43,7 @@
 //! ```
 //! use rosalind::fib::*;
 //!
-//! assert_eq!(recurrence_relation(5, 3), 19);
+//! assert_eq!(recurrence_relation(5, 3).unwrap(), 19);
 //! ```
 //!
 //! # Translating RNA into Protein
@@ -73,6 +73,7 @@
 
 use std::error::Error;
 use std::fmt;
+use std::result;
 
 use self::RosalindError::*;
 
@@ -104,6 +105,8 @@ impl<'a> Error for RosalindError<'a> {
     }
   }
 }
+
+pub type Result<'a, T> = result::Result<T, RosalindError<'a>>;
 
 pub mod dna;
 pub mod rna;

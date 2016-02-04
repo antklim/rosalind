@@ -1,11 +1,11 @@
 //! Module for `Translating RNA into Protein`
 
-use RosalindError;
+use Result;
 use RosalindError::{CodonParseError, UnknownCodon};
 
 const CODON_STOP_SYMBOL: char = '\x00';
 
-fn codon_into_amino_acid(codon: &str) -> Result<char, RosalindError> {
+fn codon_into_amino_acid(codon: &str) -> Result<char> {
   match codon {
     "GCU" | "GCC" | "GCA" | "GCG" => Ok('A'),
     "UGU" | "UGC" => Ok('C'),
@@ -45,7 +45,7 @@ fn codon_into_amino_acid(codon: &str) -> Result<char, RosalindError> {
 /// assert_eq!(translate_rna_into_protein("Z").unwrap_err(), CodonParseError);
 /// assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ"));
 /// ```
-pub fn translate_rna_into_protein(rna: &str) -> Result<String, RosalindError> {
+pub fn translate_rna_into_protein(rna: &str) -> Result<String> {
   let mut rna_len = rna.len();
   if rna.ends_with("\n") { rna_len = rna_len - 1; }
   if rna_len % 3 != 0 { return Err(CodonParseError); }
