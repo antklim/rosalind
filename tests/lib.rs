@@ -69,7 +69,7 @@ fn revc_should_skip_new_line_symbol() {
 // FIB =========================================================================
 #[test]
 fn fib_should_return_recurrence_relation() {
-  assert_eq!(recurrence_relation(5, 3), 19);
+  assert_eq!(recurrence_relation(5, 3).unwrap(), 19);
 }
 
 // PROT ========================================================================

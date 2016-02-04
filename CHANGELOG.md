@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.1] - 2016-02-04
+### Added
+- Unified type `Result`
+### Changed
+- All modules return `Result` type
+
 ## [0.4.0] - 2016-02-03
 ### Added
 - `hamm` module: solution for `Counting Point Mutations`
