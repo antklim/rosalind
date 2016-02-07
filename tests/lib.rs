@@ -7,6 +7,7 @@ use rosalind::revc::*;
 use rosalind::fib::*;
 use rosalind::prot::*;
 use rosalind::hamm::*;
+use rosalind::subs::*;
 
 // DNA =========================================================================
 #[test]
@@ -106,4 +107,19 @@ fn hamm_should_return_hamming_distance() {
 #[test]
 fn hamm_should_return_error_when_strings_have_different_length() {
   assert_eq!(hamming_distance("G", "").unwrap_err(), HammingStringsLengthError);
+}
+
+// SUBS ========================================================================
+#[test]
+fn subs_should_return_all_locations_of_substring_t_in_s() {
+  let s = "GATATATGCATATACTT";
+  let t = "ATAT";
+  assert_eq!(motif_lookup(s, t).unwrap(), vec![2, 4, 10]);
+}
+
+#[test]
+fn subs_should_return_error_when_substring_t_is_longer_than_s() {
+  let s = "ATAT";
+  let t = "GATATATGCATATACTT";
+  assert_eq!(motif_lookup(s, t).unwrap_err(), MotifStringsLengthError);
 }

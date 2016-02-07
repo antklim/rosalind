@@ -70,6 +70,18 @@
 //! assert_eq!(hamming_distance(s, t).unwrap(), 7);
 //! assert_eq!(hamming_distance("G", "").unwrap_err(), HammingStringsLengthError);
 //! ```
+//!
+//! # Finding a Motif in DNA
+//! ## Examples
+//! ```
+//! use rosalind::RosalindError::MotifStringsLengthError;
+//! use rosalind::subs::*;
+//!
+//! let s = "GATATATGCATATACTT";
+//! let t = "ATAT";
+//! assert_eq!(motif_lookup(s, t).unwrap(), vec![2, 4, 10]);
+//! assert_eq!(motif_lookup(t, s).unwrap_err(), MotifStringsLengthError);
+//! ```
 
 use std::error::Error;
 use std::fmt;
@@ -83,6 +95,7 @@ pub enum RosalindError<'a> {
   UnknownCodon(&'a str),
   CodonParseError,
   HammingStringsLengthError,
+  MotifStringsLengthError,
 }
 
 impl<'a> fmt::Display for RosalindError<'a> {
@@ -102,6 +115,7 @@ impl<'a> Error for RosalindError<'a> {
       UnknownCodon(..) => "Unknown codon",
       CodonParseError => "Could not parse RNA string and group codons",
       HammingStringsLengthError => "Strings must have equal length",
+      MotifStringsLengthError => "Substrig `t` must be no longer than `s`"
     }
   }
 }
@@ -114,3 +128,4 @@ pub mod revc;
 pub mod fib;
 pub mod prot;
 pub mod hamm;
+pub mod subs;
