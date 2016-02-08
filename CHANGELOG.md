@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.5.0] - 2016-02-09
+### Added
+- `subs` module: solution for `Finding a Motif in DNA`
+
 ## [0.4.1] - 2016-02-04
 ### Added
 - Unified type `Result`
