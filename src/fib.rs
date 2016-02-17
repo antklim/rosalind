@@ -1,6 +1,6 @@
 //! Module for `Rabbits and Recurrence Relations`
 
-use Result;
+use RosalindResult;
 
 /// This function calculates recurrence relation, or value of element at `n` position
 /// in Fibonaccie's sequence
@@ -12,7 +12,7 @@ use Result;
 /// assert_eq!(recurrence_relation(5, 3).unwrap(), 19);
 /// ```
 #[allow(unused_variables)]
-pub fn recurrence_relation<'a>(n: u8, k: u8) -> Result<'a, u64> {
+pub fn recurrence_relation<'a>(n: u8, k: u8) -> RosalindResult<'a, u64> {
   let mut pair: (u64, u64) = (1, 1);
   for i in 0..n - 1 {
     pair = (pair.1, pair.0 * k as u64 + pair.1)

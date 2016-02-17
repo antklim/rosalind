@@ -1,7 +1,7 @@
 //! Module for `Counting DNA Nucleotides`
 
 use std::fmt;
-use Result;
+use RosalindResult;
 use RosalindError::UnknownNucleotide;
 
 /// This structure contains amount of each nucleotide in DNA
@@ -34,7 +34,7 @@ impl fmt::Display for DNANucleotides {
 /// assert_eq!(count_dna_nucleotides("\n").unwrap(), DNANucleotides {A: 0, C: 0, G: 0, T: 0});
 /// assert_eq!(count_dna_nucleotides("Z").unwrap_err(), UnknownNucleotide('Z'));
 /// ```
-pub fn count_dna_nucleotides(dna: &str) -> Result<DNANucleotides> {
+pub fn count_dna_nucleotides(dna: &str) -> RosalindResult<DNANucleotides> {
   let mut dna_nucleotides = DNANucleotides {A: 0, C: 0, G: 0, T: 0};
   for nucleotide in dna.chars() {
     match nucleotide {

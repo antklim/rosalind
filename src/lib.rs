@@ -120,7 +120,7 @@ impl<'a> Error for RosalindError<'a> {
   }
 }
 
-pub type Result<'a, T> = result::Result<T, RosalindError<'a>>;
+pub type RosalindResult<'a, T> = result::Result<T, RosalindError<'a>>;
 
 pub mod dna;
 pub mod rna;

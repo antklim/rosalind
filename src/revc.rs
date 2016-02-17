@@ -1,6 +1,6 @@
 //! Module for `Complementing a Strand of DNA`
 
-use Result;
+use RosalindResult;
 use RosalindError::UnknownNucleotide;
 
 /// This function returns a reverse complement of a DNA string
@@ -15,7 +15,7 @@ use RosalindError::UnknownNucleotide;
 /// assert_eq!(reverse_complement_dna("\n").unwrap(), "");
 /// assert_eq!(reverse_complement_dna("Z").unwrap_err(), UnknownNucleotide('Z'));
 /// ```
-pub fn reverse_complement_dna(dna: &str) -> Result<String> {
+pub fn reverse_complement_dna(dna: &str) -> RosalindResult<String> {
   let mut complement_dna = String::new();
   for nucleotide in dna.chars().rev() {
     match nucleotide {
