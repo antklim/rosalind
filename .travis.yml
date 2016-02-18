@@ -1,5 +1,12 @@
 language: rust
-after_success: curl https://raw.githubusercontent.com/kmcallister/travis-doc-upload/master/travis-doc-upload.sh | sh
+after_success: |
+  [ $TRAVIS_BRANCH = master ] &&
+  [ $TRAVIS_PULL_REQUEST = false ] &&
+  cargo doc &&
+  echo "<meta http-equiv=refresh content=0;url=`echo $TRAVIS_REPO_SLUG | cut -d '/' -f 2`/index.html>" > target/doc/index.html &&
+  sudo pip install ghp-import &&
+  ghp-import -n target/doc &&
+  git push -fq https://${GH_TOKEN}@github.com/docs.git gh-pages
 env:
   global:
     secure: cSS9DbC9BF4dyAeQgutFWlEZQR9+bK1TL+X3/3Hw8pPhgMJZnNeg6HYmO5ddV/1lN+Xknco/mIhqnaKjG5DTPqsLp3AaYmoepQZhQYo5XQUo7W+94lPaIBv6ate/5IqeTEmMLdA2FweArtsKqLy0XfNPrwDM+sZP8waGT1pXUzAcJs36R1a2/64zmrmNtjZTuer73yPmxPPJ2Wwd2RsQXgEW2bxGFMqjm6yI5LW53J/6dycX7xK7DffU5mKAAHWDamcXwbFYgJLApDjnMS/A9JNTmZB/MNXKMmGMFQdiD021/9M+rYsZTTQ+JUmYthcfqb/Z8Xa8bNmkZQnP0Y+CZyfVxxYVeJ6CwuABBsbfrcNknutS5zXkdRrRnemkRns3acyqaKdC2YCiO9D27w6UQR0TZg1bvMFklqB2Kc99FMsYfwBNvuiHbvVDfub/Wy8PUaE/k7oOCedWYN9zaUhxQE9zgLC6QCGX3QF0UnP1fiXCZGUWeCP0HijLen9aCcybZZ7Qhl9aGrPor0KKkenXsIDPwQ3iPWkqaY5vs02fqRtpuTlR4FcRvU7fBG3ceVo7JQcQL+kXGn9eAHDmN3gG8ns3crPzk4IMZ2LQZJ5n3ufckzNE8A9jiRVYAwIFZ0MjhVYaUZSmtfQBOebyZFDwtw6PJ3yDqWm4gY44WZDnBPA=
