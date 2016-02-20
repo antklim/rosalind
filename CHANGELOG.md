@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.5.1] - 2016-02-20
+### Added
+- documentation section into Cargo.toml
+### Changed
+- `Result` renamed into `RosalindResult`
+
 ## [0.5.0] - 2016-02-09
 ### Added
 - `subs` module: solution for `Finding a Motif in DNA`

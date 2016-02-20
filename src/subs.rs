@@ -1,6 +1,6 @@
 //! Module for `Finding a Motif in DNA`
 
-use Result;
+use RosalindResult;
 use RosalindError::MotifStringsLengthError;
 
 
@@ -15,7 +15,7 @@ use RosalindError::MotifStringsLengthError;
 /// assert_eq!(motif_lookup(s, t).unwrap(), vec![2, 4, 10]);
 /// assert_eq!(motif_lookup(t, s).unwrap_err(), MotifStringsLengthError);
 /// ```
-pub fn motif_lookup<'a>(s: &str, t: &str) -> Result<'a, Vec<usize>> {
+pub fn motif_lookup<'a>(s: &str, t: &str) -> RosalindResult<'a, Vec<usize>> {
   let (s_len, t_len) = (s.len(), t.len());
   if s_len < t_len { return Err(MotifStringsLengthError); }
   let mut motif: Vec<usize> = Vec::new();
