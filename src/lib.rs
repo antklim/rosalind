@@ -82,6 +82,28 @@
 //! assert_eq!(motif_lookup(s, t).unwrap(), vec![2, 4, 10]);
 //! assert_eq!(motif_lookup(t, s).unwrap_err(), MotifStringsLengthError);
 //! ```
+//!
+//! # Computing GC Content
+//! ## Examples
+//! ```
+//! use rosalind::gc::*;
+//!
+//! assert_eq!(gc_content("").unwrap(), 0f32);
+//! assert_eq!(gc_content("AGCTATAG").unwrap(), 37.5f32);
+//!
+//! let dataset = ">Rosalind_6404
+//!   CCTGCGGAAGATCGGCACTAGAATAGCCAGAACCGTTTCTCTGAGGCTTCCGGCCTTCCC
+//!   TCCCACTAATAATTCTGAGG
+//!   >Rosalind_5959
+//!   CCATCGGTAGCGCATCCTTAGTCCAATTAAGTCCCTATCCAGGCGCTCCGCCGAAGGTCT
+//!   ATATCCATTTGTCAGCAGACACGC
+//!   >Rosalind_0808
+//!   CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGAC
+//!   TGGGAACCTGCGGGCAGTAGGTGGAAT";
+//!
+//! assert_eq!(best_gc_content_in_dataset(dataset).unwrap(),
+//!   GCcontent {string_id: "Rosalind_0808".to_string(), gc_content: 60.919540f32});
+//! ```
 
 use std::error::Error;
 use std::fmt;
@@ -129,3 +151,4 @@ pub mod fib;
 pub mod prot;
 pub mod hamm;
 pub mod subs;
+pub mod gc;

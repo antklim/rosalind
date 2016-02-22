@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.6.0] - 2016-02-23
+### Added
+- `gc` module: solution for `Computing GC Content`
+
 ## [0.5.1] - 2016-02-20
 ### Added
 - documentation section into Cargo.toml
