@@ -8,6 +8,7 @@ use rosalind::fib::*;
 use rosalind::prot::*;
 use rosalind::hamm::*;
 use rosalind::subs::*;
+use rosalind::gc::*;
 
 // DNA =========================================================================
 #[test]
@@ -122,4 +123,31 @@ fn subs_should_return_error_when_substring_t_is_longer_than_s() {
   let s = "ATAT";
   let t = "GATATATGCATATACTT";
   assert_eq!(motif_lookup(s, t).unwrap_err(), MotifStringsLengthError);
+}
+
+// GC ==========================================================================
+#[test]
+fn gc_should_return_0_for_empty_dna_string() {
+  assert_eq!(gc_content("").unwrap(), 0f32);
+}
+
+#[test]
+fn gc_should_calculate_gc_content_of_dna() {
+  assert_eq!(gc_content("AGCTATAG").unwrap(), 37.5f32);
+}
+
+#[test]
+fn gc_should_calculate_best_gc_content() {
+  let dataset = ">Rosalind_6404
+    CCTGCGGAAGATCGGCACTAGAATAGCCAGAACCGTTTCTCTGAGGCTTCCGGCCTTCCC
+    TCCCACTAATAATTCTGAGG
+    >Rosalind_5959
+    CCATCGGTAGCGCATCCTTAGTCCAATTAAGTCCCTATCCAGGCGCTCCGCCGAAGGTCT
+    ATATCCATTTGTCAGCAGACACGC
+    >Rosalind_0808
+    CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGAC
+    TGGGAACCTGCGGGCAGTAGGTGGAAT";
+
+  assert_eq!(best_gc_content_in_dataset(dataset).unwrap(),
+    GCcontent {string_id: "Rosalind_0808".to_string(), gc_content: 60.919540f32});
 }
