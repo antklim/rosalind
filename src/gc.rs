@@ -122,4 +122,10 @@ mod tests {
     assert_eq!(best_gc_content_in_dataset(dataset).unwrap(),
       GCcontent {string_id: "Rosalind_0808".to_string(), gc_content: 60.919540f32});
   }
+
+  #[test]
+  fn it_should_format_gc_content() {
+    let gc_content = GCcontent {string_id: "Rosalind_0808".to_string(), gc_content: 123.45f32};
+    assert_eq!(gc_content.to_string(), "Rosalind_0808\n123.45");
+  }
 }

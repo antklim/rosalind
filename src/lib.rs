@@ -56,7 +56,7 @@
 //! assert_eq!(translate_rna_into_protein(rna).unwrap(), "MAMAPRTEINSTRING");
 //! assert_eq!(translate_rna_into_protein("AUGUGA\n").unwrap(), "M");
 //! assert_eq!(translate_rna_into_protein("Z").unwrap_err(), CodonParseError);
-//! assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ"));
+//! assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ".to_string()));
 //! ```
 //!
 //! # Counting Point Mutations
@@ -112,15 +112,15 @@ use std::result;
 use self::RosalindError::*;
 
 #[derive(PartialEq, Debug)]
-pub enum RosalindError<'a> {
+pub enum RosalindError {
   UnknownNucleotide(char),
-  UnknownCodon(&'a str),
+  UnknownCodon(String),
   CodonParseError,
   HammingStringsLengthError,
   MotifStringsLengthError,
 }
 
-impl<'a> fmt::Display for RosalindError<'a> {
+impl fmt::Display for RosalindError {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     match *self {
       UnknownNucleotide(ref nucleotide) => write!(f, "{}: '{}'", self.description(), nucleotide),
@@ -130,7 +130,7 @@ impl<'a> fmt::Display for RosalindError<'a> {
   }
 }
 
-impl<'a> Error for RosalindError<'a> {
+impl Error for RosalindError {
   fn description(&self) -> &str {
     match *self {
       UnknownNucleotide(..) => "Unknown nucleotide",
@@ -142,7 +142,26 @@ impl<'a> Error for RosalindError<'a> {
   }
 }
 
-pub type RosalindResult<'a, T> = result::Result<T, RosalindError<'a>>;
+/// Unified return type for all modules and methods of `rosalind` library
+///
+/// ## Examples
+/// ```
+/// use rosalind::RosalindResult;
+/// use rosalind::RosalindError::UnknownNucleotide;
+/// use rosalind::dna::count_dna_nucleotides;
+/// use rosalind::rna::transcribe_dna_into_rna;
+///
+/// fn wrapper<T, U>(method: &Fn(U) -> RosalindResult<T>, args: U) -> RosalindResult<T> {
+///   method(args)
+/// }
+///
+/// let result = wrapper(&transcribe_dna_into_rna, "GATGGAACTTGACTACGTAAATT");
+/// assert_eq!(result.unwrap(), "GAUGGAACUUGACUACGUAAAUU");
+///
+/// let result = wrapper(&count_dna_nucleotides, "Z");
+/// assert_eq!(result.unwrap_err(), UnknownNucleotide('Z'));
+/// ```
+pub type RosalindResult<T> = result::Result<T, RosalindError>;
 
 pub mod dna;
 pub mod rna;
@@ -152,3 +171,15 @@ pub mod prot;
 pub mod hamm;
 pub mod subs;
 pub mod gc;
+
+#[cfg(test)]
+mod tests {
+  use super::RosalindError;
+  use super::RosalindError::CodonParseError;
+
+  #[test]
+  fn it_should_stringify_rosalind_error() {
+    let error: RosalindError = CodonParseError;
+    assert_eq!(error.to_string(), "Could not parse RNA string and group codons");
+  }
+}
