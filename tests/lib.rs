@@ -94,7 +94,7 @@ fn prot_should_return_error_when_cannot_parse_codons() {
 
 #[test]
 fn prot_should_return_error_when_unknown_codon_found() {
-  assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ"));
+  assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ".to_string()));
 }
 
 // HAMM ========================================================================

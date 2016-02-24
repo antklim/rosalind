@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.6.1] - 2016-02-24
+### Added
+- documentation for `RosalindResult`
+### Changed
+- `RosalindResult` simplified - lifetime parameter removed
+
 ## [0.6.0] - 2016-02-23
 ### Added
 - `gc` module: solution for `Computing GC Content`

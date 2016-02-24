@@ -28,7 +28,7 @@ fn codon_into_amino_acid(codon: &str) -> RosalindResult<char> {
     "UGG" => Ok('W'),
     "UAU" | "UAC" => Ok('Y'),
     "UAA" | "UAG" | "UGA" => Ok(CODON_STOP_SYMBOL),
-    _ => Err(UnknownCodon(codon)),
+    _ => Err(UnknownCodon(codon.to_string())),
   }
 }
 
@@ -43,7 +43,7 @@ fn codon_into_amino_acid(codon: &str) -> RosalindResult<char> {
 /// assert_eq!(translate_rna_into_protein(rna).unwrap(), "MAMAPRTEINSTRING");
 /// assert_eq!(translate_rna_into_protein("AUGUGA\n").unwrap(), "M");
 /// assert_eq!(translate_rna_into_protein("Z").unwrap_err(), CodonParseError);
-/// assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ"));
+/// assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ".to_string()));
 /// ```
 pub fn translate_rna_into_protein(rna: &str) -> RosalindResult<String> {
   let mut rna_len = rna.len();
@@ -85,6 +85,6 @@ mod tests {
 
   #[test]
   fn it_should_return_error_when_unknown_codon_found() {
-    assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ"));
+    assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ".to_string()));
   }
 }
