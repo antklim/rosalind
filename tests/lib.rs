@@ -9,6 +9,7 @@ use rosalind::prot::*;
 use rosalind::hamm::*;
 use rosalind::subs::*;
 use rosalind::gc::*;
+use rosalind::iprb::*;
 
 // DNA =========================================================================
 #[test]
@@ -150,4 +151,17 @@ fn gc_should_calculate_best_gc_content() {
 
   assert_eq!(best_gc_content_in_dataset(dataset).unwrap(),
     GCcontent {string_id: "Rosalind_0808".to_string(), gc_content: 60.919540f32});
+}
+
+// IPRB ========================================================================
+#[test]
+fn iprb_should_retutn_error_when_invalid_input_parameters_provided() {
+  assert_eq!(dominant_allele_probability(0, 1, 1).unwrap_err(), InvalidInputParameters);
+  assert_eq!(dominant_allele_probability(1, 0, 1).unwrap_err(), InvalidInputParameters);
+  assert_eq!(dominant_allele_probability(1, 1, 0).unwrap_err(), InvalidInputParameters);
+}
+
+#[test]
+fn iprb_should_retutn_dominant_allele_probability() {
+  assert_eq!(dominant_allele_probability(2, 2, 2).unwrap(), 0.7833333);
 }
