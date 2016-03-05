@@ -104,6 +104,20 @@
 //! assert_eq!(best_gc_content_in_dataset(dataset).unwrap(),
 //!   GCcontent {string_id: "Rosalind_0808".to_string(), gc_content: 60.919540f32});
 //! ```
+//!
+//! # Mendel's First Law
+//! ## Examples
+//! ```
+//! use rosalind::RosalindError::InvalidInputParameters;
+//! use rosalind::iprb::*;
+//!
+//! assert_eq!(dominant_allele_probability(0, 1, 1).unwrap_err(), InvalidInputParameters);
+//! assert_eq!(dominant_allele_probability(1, 0, 1).unwrap_err(), InvalidInputParameters);
+//! assert_eq!(dominant_allele_probability(1, 1, 0).unwrap_err(), InvalidInputParameters);
+//!
+//! assert_eq!(dominant_allele_probability(2, 2, 2).unwrap(), 0.7833333);
+//! ```
+
 
 use std::error::Error;
 use std::fmt;
@@ -118,6 +132,7 @@ pub enum RosalindError {
   CodonParseError,
   HammingStringsLengthError,
   MotifStringsLengthError,
+  InvalidInputParameters,
 }
 
 impl fmt::Display for RosalindError {
@@ -137,7 +152,8 @@ impl Error for RosalindError {
       UnknownCodon(..) => "Unknown codon",
       CodonParseError => "Could not parse RNA string and group codons",
       HammingStringsLengthError => "Strings must have equal length",
-      MotifStringsLengthError => "Substrig `t` must be no longer than `s`"
+      MotifStringsLengthError => "Substrig `t` must be no longer than `s`",
+      InvalidInputParameters => "Invalid input parameters have been passed to the function"
     }
   }
 }
@@ -171,6 +187,7 @@ pub mod prot;
 pub mod hamm;
 pub mod subs;
 pub mod gc;
+pub mod iprb;
 
 #[cfg(test)]
 mod tests {
