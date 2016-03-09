@@ -41,9 +41,18 @@
 //! # Rabbits and Recurrence Relations
 //! ## Examples
 //! ```
+//! # #[macro_use] extern crate num;
+//! # #[macro_use] extern crate rosalind;
+//! # fn main() {
 //! use rosalind::fib::*;
+//! use num::{BigUint};
+//! use num::bigint::{ToBigUint};
 //!
-//! assert_eq!(recurrence_relation(5, 3).unwrap(), 19);
+//! let mut expected_relation: BigUint = 19.to_biguint().unwrap();
+//! assert_eq!(recurrence_relation(5, 3).unwrap(), expected_relation);
+//! expected_relation = 4.to_biguint().unwrap();
+//! assert_eq!(recurrence_relation_with_stop(6, 3).unwrap(), expected_relation);
+//! # }
 //! ```
 //!
 //! # Translating RNA into Protein
@@ -117,7 +126,7 @@
 //!
 //! assert_eq!(dominant_allele_probability(2, 2, 2).unwrap(), 0.7833333);
 //! ```
-
+extern crate num;
 
 use std::error::Error;
 use std::fmt;

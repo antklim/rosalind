@@ -1,6 +1,6 @@
 [package]
 name = "rosalind"
-version = "0.6.1"
+version = "0.7.0"
 authors = ["Anton Klimenko <antklim@gmail.com>"]
 description = "Crate contains solutions of problems published on Rosalind.info"
 repository = "https://github.com/antklim/rosalind.git"
@@ -8,3 +8,6 @@ documentation = "https://antklim.github.io/docs/rosalind/rosalind/index.html"
 readme = "README.md"
 keywords = ["rosalind", "algorithms", "bioinformatics"]
 license = "MIT"
+
+[dependencies]
+num = "0.1.31"

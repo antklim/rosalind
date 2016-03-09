@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.7.0] - 2016-03-18
+### Added
+- Dependency to `num` cargo
+- `recurrence_relation_with_stop` to fib module: solution for `Mortal Fibonacci Rabbits`
+### Changed
+- `rosalind::fib::recurrence_relation` - return type changed to `RosalindResult<BigUint>`
+
 ## [0.6.1] - 2016-02-24
 ### Added
 - documentation for `RosalindResult`
