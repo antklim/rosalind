@@ -1,4 +1,5 @@
 extern crate rosalind;
+extern crate num;
 
 use rosalind::RosalindError::*;
 use rosalind::dna::*;
@@ -10,6 +11,9 @@ use rosalind::hamm::*;
 use rosalind::subs::*;
 use rosalind::gc::*;
 use rosalind::iprb::*;
+
+use num::{BigUint};
+use num::bigint::{ToBigUint};
 
 // DNA =========================================================================
 #[test]
@@ -72,7 +76,14 @@ fn revc_should_skip_new_line_symbol() {
 // FIB =========================================================================
 #[test]
 fn fib_should_return_recurrence_relation() {
-  assert_eq!(recurrence_relation(5, 3).unwrap(), 19);
+  let expected_relation: BigUint = 19.to_biguint().unwrap();
+  assert_eq!(recurrence_relation(5, 3).unwrap(), expected_relation);
+}
+
+#[test]
+fn fib_should_return_recurrence_relation_with_stop() {
+  let expected_relation: BigUint = 4.to_biguint().unwrap();
+  assert_eq!(recurrence_relation_with_stop(6, 3).unwrap(), expected_relation);
 }
 
 // PROT ========================================================================
