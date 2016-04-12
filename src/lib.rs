@@ -55,10 +55,10 @@
 //! # }
 //! ```
 //!
-//! # Translating RNA into Protein
+//! # Translating RNA into Protein, Inferring mRNA from Protein
 //! ## Examples
 //! ```
-//! use rosalind::RosalindError::{CodonParseError, UnknownCodon};
+//! use rosalind::RosalindError::{CodonParseError, UnknownCodon, UnknownAminoAcid};
 //! use rosalind::prot::*;
 //!
 //! let rna = "AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA";
@@ -66,6 +66,11 @@
 //! assert_eq!(translate_rna_into_protein("AUGUGA\n").unwrap(), "M");
 //! assert_eq!(translate_rna_into_protein("Z").unwrap_err(), CodonParseError);
 //! assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ".to_string()));
+//!
+//! assert_eq!(get_number_of_rna_from_protein("MA").unwrap(), 12);
+//! assert_eq!(get_number_of_rna_from_protein("").unwrap(), 0);
+//! assert_eq!(get_number_of_rna_from_protein("\n").unwrap(), 0);
+//! assert_eq!(get_number_of_rna_from_protein("B").unwrap_err(), UnknownAminoAcid('B'));
 //! ```
 //!
 //! # Counting Point Mutations
@@ -138,6 +143,7 @@ use self::RosalindError::*;
 pub enum RosalindError {
   UnknownNucleotide(char),
   UnknownCodon(String),
+  UnknownAminoAcid(char),
   CodonParseError,
   HammingStringsLengthError,
   MotifStringsLengthError,
@@ -149,6 +155,7 @@ impl fmt::Display for RosalindError {
     match *self {
       UnknownNucleotide(ref nucleotide) => write!(f, "{}: '{}'", self.description(), nucleotide),
       UnknownCodon(ref codon) => write!(f, "{}: '{}'", self.description(), codon),
+      UnknownAminoAcid(ref amino_acid) => write!(f, "{}: '{}'", self.description(), amino_acid),
       _ => write!(f, "{}", self.description()),
     }
   }
@@ -159,6 +166,7 @@ impl Error for RosalindError {
     match *self {
       UnknownNucleotide(..) => "Unknown nucleotide",
       UnknownCodon(..) => "Unknown codon",
+      UnknownAminoAcid(..) => "Unknown amino acid",
       CodonParseError => "Could not parse RNA string and group codons",
       HammingStringsLengthError => "Strings must have equal length",
       MotifStringsLengthError => "Substrig `t` must be no longer than `s`",
