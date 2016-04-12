@@ -69,7 +69,7 @@
 //!
 //! assert_eq!(get_number_of_rna_from_protein("MA").unwrap(), 12);
 //! assert_eq!(get_number_of_rna_from_protein("").unwrap(), 0);
-//! assert_eq!(get_number_of_rna_from_protein("\n").unwrap(), 0);
+//! assert_eq!(get_number_of_rna_from_protein("\n").unwrap(), 3);
 //! assert_eq!(get_number_of_rna_from_protein("B").unwrap_err(), UnknownAminoAcid('B'));
 //! ```
 //!

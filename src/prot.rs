@@ -1,4 +1,4 @@
-//! Module for `Translating RNA into Protein`
+//! Module for `Translating RNA into Protein, Inferring mRNA from Protein`
 
 use RosalindResult;
 use RosalindError::{CodonParseError, UnknownCodon, UnknownAminoAcid};
@@ -55,7 +55,6 @@ fn amino_acid_into_codon<'a>(amino_acid: char) -> RosalindResult<Vec<&'a str>> {
     'W' => Ok(vec!["UGG"]),
     'Y' => Ok(vec!["UAU", "UAC"]),
     CODON_STOP_SYMBOL => Ok(vec!["UAA", "UAG", "UGA"]),
-    '\n' => Ok(vec![]),
     _ => Err(UnknownAminoAcid(amino_acid)),
   }
 }
@@ -99,7 +98,7 @@ pub fn translate_rna_into_protein(rna: &str) -> RosalindResult<String> {
 ///
 /// assert_eq!(get_number_of_rna_from_protein("MA").unwrap(), 12);
 /// assert_eq!(get_number_of_rna_from_protein("").unwrap(), 0);
-/// assert_eq!(get_number_of_rna_from_protein("\n").unwrap(), 0);
+/// assert_eq!(get_number_of_rna_from_protein("\n").unwrap(), 3);
 /// assert_eq!(get_number_of_rna_from_protein("B").unwrap_err(), UnknownAminoAcid('B'));
 /// ```
 pub fn get_number_of_rna_from_protein(protein: &str) -> RosalindResult<usize> {
@@ -109,6 +108,7 @@ pub fn get_number_of_rna_from_protein(protein: &str) -> RosalindResult<usize> {
   let modulo: usize = 1000000usize;
 
   for amino_acid in protein.chars() {
+    if amino_acid == '\n' { continue; }
     let possible_codons = try!(amino_acid_into_codon(amino_acid));
     total = total * possible_codons.len();
     if total > modulo { total = total % modulo }
@@ -156,7 +156,11 @@ mod tests {
   #[test]
   fn it_should_return_zero_for_empty_string() {
     assert_eq!(get_number_of_rna_from_protein("").unwrap(), 0);
-    assert_eq!(get_number_of_rna_from_protein("\n").unwrap(), 0);
+  }
+
+  #[test]
+  fn it_should_return_amount_of_stop_codons_string() {
+    assert_eq!(get_number_of_rna_from_protein("\n").unwrap(), 3);
   }
 
   #[test]
