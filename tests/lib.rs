@@ -109,6 +109,22 @@ fn prot_should_return_error_when_unknown_codon_found() {
   assert_eq!(translate_rna_into_protein("ZZZ").unwrap_err(), UnknownCodon("ZZZ".to_string()));
 }
 
+#[test]
+fn prot_should_return_number_of_rna_from_protein() {
+  assert_eq!(get_number_of_rna_from_protein("MA").unwrap(), 12);
+}
+
+#[test]
+fn prot_should_return_zero_for_empty_string() {
+  assert_eq!(get_number_of_rna_from_protein("").unwrap(), 0);
+  assert_eq!(get_number_of_rna_from_protein("\n").unwrap(), 0);
+}
+
+#[test]
+fn prot_should_return_error_when_unknown_aminoacid_found() {
+  assert_eq!(get_number_of_rna_from_protein("B").unwrap_err(), UnknownAminoAcid('B'));
+}
+
 // HAMM ========================================================================
 #[test]
 fn hamm_should_return_hamming_distance() {
