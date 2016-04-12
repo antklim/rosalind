@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.8.1] - 2016-04-12
+### Fixed
+- Correct work with `\n` symbol during `Inferring mRNA from Protein`
+
 ## [0.8.0] - 2016-04-12
 ### Added
 - `get_number_of_rna_from_protein` to prot module: solution for `Inferring mRNA from Protein`
