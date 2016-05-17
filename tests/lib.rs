@@ -129,6 +129,16 @@ fn prot_should_return_error_when_unknown_aminoacid_found() {
   assert_eq!(get_number_of_rna_from_protein("B").unwrap_err(), UnknownAminoAcid('B'));
 }
 
+#[test]
+fn prot_should_calculate_protein_mass() {
+  assert_eq!(get_protein_mass("SKADYEK\n").unwrap(), 821.392f64);
+}
+
+#[test]
+fn prot_should_not_calculate_protein_mass() {
+  assert_eq!(get_protein_mass("AB").unwrap_err(), UnknownAminoAcid('B'));
+}
+
 // HAMM ========================================================================
 #[test]
 fn hamm_should_return_hamming_distance() {

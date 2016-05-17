@@ -1,4 +1,4 @@
-//! Module for `Translating RNA into Protein, Inferring mRNA from Protein`
+//! Module for `Translating RNA into Protein, Inferring mRNA from Protein, Calculating Protein Mass`
 
 use RosalindResult;
 use RosalindError::{CodonParseError, UnknownCodon, UnknownAminoAcid};
@@ -55,6 +55,33 @@ fn amino_acid_into_codon<'a>(amino_acid: char) -> RosalindResult<Vec<&'a str>> {
     'W' => Ok(vec!["UGG"]),
     'Y' => Ok(vec!["UAU", "UAC"]),
     CODON_STOP_SYMBOL => Ok(vec!["UAA", "UAG", "UGA"]),
+    _ => Err(UnknownAminoAcid(amino_acid)),
+  }
+}
+
+fn get_monoisotopic_mass(amino_acid: char) -> RosalindResult<f64> {
+  match amino_acid {
+    'A' => Ok(71.03711f64),
+    'C' => Ok(103.00919f64),
+    'D' => Ok(115.02694f64),
+    'E' => Ok(129.04259f64),
+    'F' => Ok(147.06841f64),
+    'G' => Ok(57.02146f64),
+    'H' => Ok(137.05891f64),
+    'I' => Ok(113.08406f64),
+    'K' => Ok(128.09496f64),
+    'L' => Ok(113.08406f64),
+    'M' => Ok(131.04049f64),
+    'N' => Ok(114.04293f64),
+    'P' => Ok(97.05276f64),
+    'Q' => Ok(128.05858f64),
+    'R' => Ok(156.10111f64),
+    'S' => Ok(87.03203f64),
+    'T' => Ok(101.04768f64),
+    'V' => Ok(99.06841f64),
+    'W' => Ok(186.07931f64),
+    'Y' => Ok(163.06333f64),
+    '\n' => Ok(0.0f64),
     _ => Err(UnknownAminoAcid(amino_acid)),
   }
 }
@@ -121,9 +148,30 @@ pub fn get_number_of_rna_from_protein(protein: &str) -> RosalindResult<usize> {
   Ok(total % modulo)
 }
 
+/// This function calculates protein mass
+///
+/// ## Examples
+/// ```
+/// use rosalind::RosalindError::UnknownAminoAcid;
+/// use rosalind::prot::*;
+///
+/// assert_eq!(get_protein_mass("SKADYEK\n").unwrap(), 821.392f64);
+/// assert_eq!(get_protein_mass("AB").unwrap_err(), UnknownAminoAcid('B'));
+/// ```
+pub fn get_protein_mass(protein: &str) -> RosalindResult<f64> {
+  let mass_list: RosalindResult<Vec<f64>> = protein
+    .chars()
+    .map(get_monoisotopic_mass)
+    .collect();
+
+  let mass = try!(mass_list).iter().fold(0f64, |m, weight| m + weight);
+
+  Ok((mass * 1000.0f64).round() / 1000.0f64)
+}
+
 #[cfg(test)]
 mod tests {
-  use super::{translate_rna_into_protein, get_number_of_rna_from_protein};
+  use super::*;
   use super::super::RosalindError::{CodonParseError, UnknownCodon, UnknownAminoAcid};
 
   #[test]
@@ -166,5 +214,15 @@ mod tests {
   #[test]
   fn it_should_return_error_when_unknown_aminoacid_found() {
     assert_eq!(get_number_of_rna_from_protein("B").unwrap_err(), UnknownAminoAcid('B'));
+  }
+
+  #[test]
+  fn it_should_calculate_protein_mass() {
+    assert_eq!(get_protein_mass("SKADYEK\n").unwrap(), 821.392f64);
+  }
+
+  #[test]
+  fn it_should_not_calculate_protein_mass() {
+    assert_eq!(get_protein_mass("AB").unwrap_err(), UnknownAminoAcid('B'));
   }
 }
