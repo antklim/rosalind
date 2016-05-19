@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.9.0] - 2016-05-19
+### Added
+- `get_protein_mass` to prot module: solution for `Calculating Protein Mass`
+
 ## [0.8.1] - 2016-04-12
 ### Fixed
 - Correct work with `\n` symbol during `Inferring mRNA from Protein`

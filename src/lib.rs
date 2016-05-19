@@ -55,7 +55,7 @@
 //! # }
 //! ```
 //!
-//! # Translating RNA into Protein, Inferring mRNA from Protein
+//! # Translating RNA into Protein, Inferring mRNA from Protein, Calculating Protein Mass
 //! ## Examples
 //! ```
 //! use rosalind::RosalindError::{CodonParseError, UnknownCodon, UnknownAminoAcid};
@@ -71,6 +71,9 @@
 //! assert_eq!(get_number_of_rna_from_protein("").unwrap(), 0);
 //! assert_eq!(get_number_of_rna_from_protein("\n").unwrap(), 3);
 //! assert_eq!(get_number_of_rna_from_protein("B").unwrap_err(), UnknownAminoAcid('B'));
+//!
+//! assert_eq!(get_protein_mass("SKADYEK\n").unwrap(), 821.392f64);
+//! assert_eq!(get_protein_mass("AB").unwrap_err(), UnknownAminoAcid('B'));
 //! ```
 //!
 //! # Counting Point Mutations
