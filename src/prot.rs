@@ -2,8 +2,7 @@
 
 use RosalindResult;
 use RosalindError::{CodonParseError, UnknownCodon, UnknownAminoAcid};
-
-const CODON_STOP_SYMBOL: char = '\x00';
+use constants::CODON_STOP_SYMBOL;
 
 fn codon_into_amino_acid(codon: &str) -> RosalindResult<char> {
   match codon {
