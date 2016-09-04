@@ -2,8 +2,7 @@
 
 use std::fmt;
 use RosalindResult;
-
-const FASTA_LABEL_SYMBOL: char = '>';
+use constants::FASTA_LABEL_SYMBOL;
 
 /// This structure contains info about the string with the highest GC content
 #[allow(non_snake_case)]
@@ -64,6 +63,7 @@ pub fn gc_content(dna: &str) -> RosalindResult<f32> {
 /// assert_eq!(best_gc_content_in_dataset(dataset).unwrap(),
 ///   GCcontent {string_id: "Rosalind_0808".to_string(), gc_content: 60.919540f32});
 /// ```
+// TODO: refactor - use utils:parse_fasta_dataset
 pub fn best_gc_content_in_dataset(dataset: &str) -> RosalindResult<GCcontent> {
   let mut best_gc_label = "".to_string();
   let mut best_gc_content = 0f32;

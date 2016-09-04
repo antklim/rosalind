@@ -134,6 +134,46 @@
 //!
 //! assert_eq!(dominant_allele_probability(2, 2, 2).unwrap(), 0.7833333);
 //! ```
+//!
+//! # Consensus and Profile
+//! ## Examples
+//! ```
+//! use rosalind::cons::*;
+//!
+//! let prof = Profile {
+//!     A: vec![5, 1, 0, 0, 5, 5, 0, 0],
+//!     C: vec![0, 0, 1, 4, 2, 0, 6, 1],
+//!     G: vec![1, 1, 6, 3, 0, 1, 0, 0],
+//!     T: vec![1, 5, 0, 0, 0, 1, 1, 6],
+//! };
+//!
+//! assert_eq!(consensus(prof).unwrap(), "ATGCAACT");
+//! ```
+//!
+//! # Utilities
+//! ## Parse FASTA dataset into list of Strings
+//! ```
+//! use rosalind::utils::*;
+//!
+//! let fasta_dataset = ">Rosalind_1
+//!     CCTGCGGAAG
+//!     TCCCACTAAT
+//!     >Rosalind_2
+//!     CCATCGGTAG
+//!     ATATCCATTT
+//!     >Rosalind_3
+//!     CCACCCTCGT
+//!     TGGGAACCTG";
+//!
+//! let expected_dataset = vec![
+//!     "CCTGCGGAAGTCCCACTAAT",
+//!     "CCATCGGTAGATATCCATTT",
+//!     "CCACCCTCGTTGGGAACCTG",
+//! ];
+//!
+//! assert_eq!(parse_fasta_dataset(fasta_dataset).unwrap(), expected_dataset);
+//! ```
+
 extern crate num;
 
 use std::error::Error;
@@ -208,6 +248,9 @@ pub mod hamm;
 pub mod subs;
 pub mod gc;
 pub mod iprb;
+pub mod cons;
+pub mod constants;
+pub mod utils;
 
 #[cfg(test)]
 mod tests {
