@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.11.0] - 2017-01-12
+### Added
+- `perm` module: solution for `Enumerating gene orders`
+- `utils::factorial` function to calculate factorial of `n`
+
 ## [0.10.0] - 2016-09-04
 ### Added
 - `cons` module: solution for `Consensus and Profile`

@@ -276,3 +276,15 @@ fn utils_should_parse_fasta_dataset() {
 
     assert_eq!(dataset, expected_dataset)
 }
+
+#[test]
+fn utils_should_return_factrorial_of_n() {
+    assert_eq!(factorial(0), 1);
+    assert_eq!(factorial(1), 1);
+    assert_eq!(factorial(2), 2);
+    assert_eq!(factorial(3), 6);
+    assert_eq!(factorial(4), 24);
+    assert_eq!(factorial(5), 120);
+    assert_eq!(factorial(6), 720);
+    assert_eq!(factorial(7), 5040);
+}

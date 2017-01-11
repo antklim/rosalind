@@ -153,7 +153,7 @@
 //! # Utilities
 //! ## Parse FASTA dataset into list of Strings
 //! ```
-//! use rosalind::utils::*;
+//! use rosalind::utils::parse_fasta_dataset;
 //!
 //! let fasta_dataset = ">Rosalind_1
 //!     CCTGCGGAAG
@@ -172,6 +172,15 @@
 //! ];
 //!
 //! assert_eq!(parse_fasta_dataset(fasta_dataset).unwrap(), expected_dataset);
+//! ```
+//!
+//! ## Calculates factorial of `n`
+//! ```
+//! use rosalind::utils::factorial;
+//!
+//! assert_eq!(factorial(0), 1);
+//! assert_eq!(factorial(1), 1);
+//! assert_eq!(factorial(5), 120);
 //! ```
 
 extern crate num;
@@ -251,6 +260,7 @@ pub mod iprb;
 pub mod cons;
 pub mod constants;
 pub mod utils;
+pub mod perm;
 
 #[cfg(test)]
 mod tests {
